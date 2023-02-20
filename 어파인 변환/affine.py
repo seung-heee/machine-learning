@@ -71,10 +71,11 @@ def affine_scale(): # 크기
     if src is None:
         print('Image load failed!')
         return
-    
-    dst1 = cv.resize(src, (0, 0), fx=4, fy=4, interpolation=cv.INTER_NEAREST) # 스케일 비율로
-    dst2 = cv.resize(src, (1920, 1280)) # 기본값 linear 효율, 퀄리티 좋음.
-    dst3 = cv.resize(src, (1920, 1280), interpolation=cv.INTER_CUBIC) # 3차 보간법 4x4
+
+    # 다양한 보간법으로 확대
+    dst1 = cv.resize(src, (0, 0), fx=4, fy=4, interpolation=cv.INTER_NEAREST) # 스케일 비율로 / 최근방 이웃 보간법
+    dst2 = cv.resize(src, (1920, 1280)) # 기본값 linear / 효율, 퀄리티 좋음. 널리 사용됨 / 양선형 보간법
+    dst3 = cv.resize(src, (1920, 1280), interpolation=cv.INTER_CUBIC) # 3차 보간법 4x4 
     dst4 = cv.resize(src, (1920, 1280), interpolation=cv.INTER_LANCZOS4) # 8x8 이웃 픽셀을 사용, 복잡하지만 퀄리티 좋음
 
     cv.imshow('src', src)
@@ -94,7 +95,7 @@ def affine_rotation(): # 회전
         return
 
     cp = (src.shape[1] / 2, src.shape[0] / 2) # 영상 중심좌표
-    affine_mat = cv.getRotationMatrix2D(cp, 20, 1) # 좌표 cp를 기준으로 반시계방향으로 20도회전하는 행렬
+    affine_mat = cv.getRotationMatrix2D(cp, 90, 1) # 좌표 cp를 기준으로 반시계방향으로 20도 회전하는 행렬
 
     dst = cv.warpAffine(src, affine_mat, (0, 0)) # 행렬을 이용하여 어파인 변환
 
