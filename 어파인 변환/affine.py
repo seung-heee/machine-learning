@@ -130,7 +130,6 @@ if __name__ == '__main__':
     #affine_transform()
     #affine_translation()
     #affine_shear()
-    
     #affine_scale() 
     #affine_rotation()
     affine_flip()
